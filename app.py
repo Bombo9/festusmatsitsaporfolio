@@ -52,34 +52,14 @@ st.markdown("""
 
 def create_download_link():
     """Create a download link for the resume PDF"""
-    # Since we can't generate the actual PDF file, we'll create a placeholder
-    # In a real implementation, this would link to the actual resume file
-    resume_text = """FESTUS MATSITSA BOMBO
-DATA SCIENTIST
-
-Passionate Data Scientist with a strong background in data analysis, machine learning, 
-data visualization, and statistical modeling, skilled in transforming complex datasets 
-into actionable insights that support data-driven decision-making and drive business success.
-
-RELEVANT EXPERIENCE
-
-• Data Scientist
-Fiverr | April 2021 - Present
-Built and maintained relationships with clients to understand their data needs.
-
-• Data Scientist  
-Upwork | Jun 2022 - Present
-Analyzed large datasets to identify trends and provide actionable insights.
-
-EDUCATION BACKGROUND
-
-BSc Computer Science
-Pwani University | Aug 2022 - Sep 2027
-Undergraduate in Computer Science"""
-    
-    b64 = base64.b64encode(resume_text.encode()).decode()
-    href = f'<a href="data:text/plain;base64,{b64}" download="Festus_Bombo_Resume.txt">📄 Download Resume</a>'
-    return href
+    try:
+        with open("attached_assets/My Resume.pdf", "rb") as file:
+            pdf_data = file.read()
+            b64 = base64.b64encode(pdf_data).decode()
+            href = f'<a href="data:application/pdf;base64,{b64}" download="Festus_Bombo_Resume.pdf">📄 Download Resume (PDF)</a>'
+            return href
+    except FileNotFoundError:
+        return '<p>Resume file not available for download</p>'
 
 def main():
     # Header
