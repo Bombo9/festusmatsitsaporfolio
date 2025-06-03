@@ -3,47 +3,52 @@ from datetime import datetime
 
 st.set_page_config(page_title="Experience - Festus Bombo", page_icon="💼", layout="wide")
 
-# Custom CSS
+# Custom CSS for dark mode
 st.markdown("""
 <style>
     .experience-card {
-        background-color: #f8f9fa;
+        background: linear-gradient(135deg, #262730 0%, #1e1e2e 100%);
         padding: 1.5rem;
-        border-radius: 10px;
+        border-radius: 15px;
         margin: 1rem 0;
-        border-left: 4px solid #1f77b4;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        border-left: 4px solid #00d4aa;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(0, 212, 170, 0.2);
     }
     .company-name {
         font-size: 1.2rem;
         font-weight: bold;
-        color: #1f77b4;
+        color: #00d4aa;
     }
     .position-title {
         font-size: 1.5rem;
         font-weight: bold;
-        color: #333;
+        color: #fafafa;
         margin-bottom: 0.5rem;
     }
     .duration {
-        color: #666;
+        color: #fafafa;
+        opacity: 0.8;
         font-style: italic;
         margin-bottom: 1rem;
     }
     .education-card {
-        background-color: #e8f4f8;
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
         padding: 1.5rem;
-        border-radius: 10px;
+        border-radius: 15px;
         margin: 1rem 0;
-        border-left: 4px solid #28a745;
+        border-left: 4px solid #00d4aa;
+        border: 1px solid rgba(0, 212, 170, 0.3);
+        box-shadow: 0 4px 15px rgba(0, 212, 170, 0.1);
     }
     .timeline-dot {
         width: 12px;
         height: 12px;
-        background-color: #1f77b4;
+        background-color: #00d4aa;
         border-radius: 50%;
         display: inline-block;
         margin-right: 10px;
+        box-shadow: 0 0 10px rgba(0, 212, 170, 0.5);
     }
 </style>
 """, unsafe_allow_html=True)

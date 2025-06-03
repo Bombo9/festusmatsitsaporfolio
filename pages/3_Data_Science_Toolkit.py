@@ -17,36 +17,42 @@ import base64
 
 st.set_page_config(page_title="Data Science Toolkit", page_icon="🔧", layout="wide")
 
-# Custom CSS
+# Custom CSS for dark mode
 st.markdown("""
 <style>
     .toolkit-section {
-        background-color: #f8f9fa;
+        background: linear-gradient(135deg, #262730 0%, #1e1e2e 100%);
         padding: 1.5rem;
-        border-radius: 10px;
+        border-radius: 15px;
         margin: 1rem 0;
-        border-left: 4px solid #1f77b4;
+        border-left: 4px solid #00d4aa;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(0, 212, 170, 0.2);
     }
     .metric-card {
-        background-color: #e8f4f8;
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
         padding: 1rem;
-        border-radius: 8px;
+        border-radius: 10px;
         text-align: center;
         margin: 0.5rem 0;
+        border: 1px solid rgba(0, 212, 170, 0.3);
+        box-shadow: 0 4px 15px rgba(0, 212, 170, 0.1);
     }
     .success-box {
-        background-color: #d4edda;
-        border: 1px solid #c3e6cb;
-        border-radius: 5px;
+        background-color: rgba(0, 212, 170, 0.1);
+        border: 1px solid rgba(0, 212, 170, 0.3);
+        border-radius: 10px;
         padding: 1rem;
         margin: 1rem 0;
+        color: #00d4aa;
     }
     .warning-box {
-        background-color: #fff3cd;
-        border: 1px solid #ffeaa7;
-        border-radius: 5px;
+        background-color: rgba(255, 193, 7, 0.1);
+        border: 1px solid rgba(255, 193, 7, 0.3);
+        border-radius: 10px;
         padding: 1rem;
         margin: 1rem 0;
+        color: #ffc107;
     }
 </style>
 """, unsafe_allow_html=True)

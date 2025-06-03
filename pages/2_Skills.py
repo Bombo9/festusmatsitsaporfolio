@@ -5,26 +5,31 @@ import pandas as pd
 
 st.set_page_config(page_title="Skills - Festus Bombo", page_icon="🛠️", layout="wide")
 
-# Custom CSS
+# Custom CSS for dark mode
 st.markdown("""
 <style>
     .skill-category {
-        background-color: #f8f9fa;
+        background: linear-gradient(135deg, #262730 0%, #1e1e2e 100%);
         padding: 1.5rem;
-        border-radius: 10px;
+        border-radius: 15px;
         margin: 1rem 0;
-        border-left: 4px solid #1f77b4;
+        border-left: 4px solid #00d4aa;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(0, 212, 170, 0.2);
     }
     .tool-badge {
-        background-color: #e7f3ff;
+        background: linear-gradient(45deg, #00d4aa, #00b894);
+        color: #0e1117;
         padding: 0.3rem 0.8rem;
-        border-radius: 15px;
+        border-radius: 20px;
         margin: 0.2rem;
         display: inline-block;
         font-size: 0.9rem;
-        border: 1px solid #1f77b4;
+        font-weight: bold;
+        box-shadow: 0 2px 8px rgba(0, 212, 170, 0.3);
+        border: 1px solid #00d4aa;
     }
-    .proficiency-high { color: #28a745; font-weight: bold; }
+    .proficiency-high { color: #00d4aa; font-weight: bold; }
     .proficiency-medium { color: #ffc107; font-weight: bold; }
     .proficiency-basic { color: #6c757d; font-weight: bold; }
 </style>

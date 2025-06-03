@@ -10,7 +10,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS for better styling
+# Custom CSS for dark mode styling
 st.markdown("""
 <style>
     .main-header {
@@ -18,34 +18,90 @@ st.markdown("""
         font-weight: bold;
         text-align: center;
         margin-bottom: 1rem;
-        color: #1f77b4;
+        color: #00d4aa;
+        text-shadow: 0 0 10px rgba(0, 212, 170, 0.3);
     }
     .sub-header {
         font-size: 1.5rem;
         text-align: center;
-        color: #666;
+        color: #fafafa;
         margin-bottom: 2rem;
+        opacity: 0.9;
     }
     .section-header {
         font-size: 2rem;
         font-weight: bold;
         margin-top: 2rem;
         margin-bottom: 1rem;
-        border-bottom: 2px solid #1f77b4;
+        border-bottom: 2px solid #00d4aa;
         padding-bottom: 0.5rem;
+        color: #00d4aa;
     }
     .highlight-box {
-        background-color: #f0f2f6;
+        background: linear-gradient(135deg, #262730 0%, #1e1e2e 100%);
         padding: 1.5rem;
-        border-radius: 10px;
+        border-radius: 15px;
         margin: 1rem 0;
-        border-left: 4px solid #1f77b4;
+        border-left: 4px solid #00d4aa;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(0, 212, 170, 0.2);
     }
     .contact-info {
-        background-color: #e8f4f8;
-        padding: 1rem;
-        border-radius: 10px;
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        padding: 1.5rem;
+        border-radius: 15px;
         margin: 1rem 0;
+        border: 1px solid rgba(0, 212, 170, 0.3);
+        box-shadow: 0 4px 15px rgba(0, 212, 170, 0.1);
+    }
+    .project-card {
+        background: linear-gradient(135deg, #2a2a3e 0%, #1e1e2e 100%);
+        padding: 1.5rem;
+        border-radius: 15px;
+        margin: 1rem 0;
+        border-left: 4px solid #00d4aa;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(0, 212, 170, 0.2);
+        transition: transform 0.3s ease;
+    }
+    .project-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 212, 170, 0.2);
+    }
+    .contact-section {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        padding: 2rem;
+        border-radius: 20px;
+        margin: 2rem 0;
+        border: 2px solid rgba(0, 212, 170, 0.3);
+        box-shadow: 0 8px 30px rgba(0, 212, 170, 0.1);
+    }
+    .tech-badge {
+        background: linear-gradient(45deg, #00d4aa, #00b894);
+        color: #0e1117;
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        margin: 0.2rem;
+        display: inline-block;
+        font-size: 0.85rem;
+        font-weight: bold;
+        box-shadow: 0 2px 8px rgba(0, 212, 170, 0.3);
+    }
+    .email-link {
+        color: #00d4aa;
+        text-decoration: none;
+        font-weight: bold;
+        padding: 0.5rem 1rem;
+        border: 2px solid #00d4aa;
+        border-radius: 25px;
+        display: inline-block;
+        transition: all 0.3s ease;
+        background: rgba(0, 212, 170, 0.1);
+    }
+    .email-link:hover {
+        background: #00d4aa;
+        color: #0e1117;
+        transform: scale(1.05);
     }
 </style>
 """, unsafe_allow_html=True)
@@ -138,33 +194,94 @@ def main():
         """, unsafe_allow_html=True)
     
     # Recent Projects Section
-    st.markdown('<h2 class="section-header">🚀 Featured Capabilities</h2>', unsafe_allow_html=True)
+    st.markdown('<h2 class="section-header">🚀 Featured Projects</h2>', unsafe_allow_html=True)
     
-    col1, col2, col3 = st.columns(3)
+    col1, col2 = st.columns(2)
     
     with col1:
         st.markdown("""
-        <div class="highlight-box">
-        <h4>📊 Data Analysis</h4>
-        <p>Comprehensive EDA, statistical analysis, and data preprocessing for actionable insights.</p>
+        <div class="project-card">
+        <h4>📊 Customer Segmentation Analysis</h4>
+        <p>Developed a comprehensive customer segmentation model using K-means clustering and RFM analysis for an e-commerce client, resulting in 25% increase in targeted marketing effectiveness.</p>
+        <div>
+        <span class="tech-badge">Python</span>
+        <span class="tech-badge">Scikit-learn</span>
+        <span class="tech-badge">Pandas</span>
+        <span class="tech-badge">Tableau</span>
+        </div>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        st.markdown("""
+        <div class="project-card">
+        <h4>🤖 Sales Forecasting Model</h4>
+        <p>Built time series forecasting models using ARIMA and Random Forest to predict monthly sales with 92% accuracy, helping a retail client optimize inventory management.</p>
+        <div>
+        <span class="tech-badge">Python</span>
+        <span class="tech-badge">TensorFlow</span>
+        <span class="tech-badge">Time Series</span>
+        <span class="tech-badge">Power BI</span>
+        </div>
         </div>
         """, unsafe_allow_html=True)
     
     with col2:
         st.markdown("""
-        <div class="highlight-box">
-        <h4>🤖 Machine Learning</h4>
-        <p>Predictive modeling, classification, regression, and advanced ML algorithm implementation.</p>
+        <div class="project-card">
+        <h4>📈 Financial Risk Assessment</h4>
+        <p>Developed a credit risk assessment model using logistic regression and gradient boosting, achieving 88% accuracy in predicting loan defaults for a fintech startup.</p>
+        <div>
+        <span class="tech-badge">Python</span>
+        <span class="tech-badge">XGBoost</span>
+        <span class="tech-badge">SQL</span>
+        <span class="tech-badge">Excel</span>
+        </div>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        st.markdown("""
+        <div class="project-card">
+        <h4>🔍 Market Analysis Dashboard</h4>
+        <p>Created an interactive dashboard analyzing market trends and competitor performance using web scraping and data visualization, providing real-time insights for strategic decision-making.</p>
+        <div>
+        <span class="tech-badge">Python</span>
+        <span class="tech-badge">Plotly</span>
+        <span class="tech-badge">Web Scraping</span>
+        <span class="tech-badge">Dashboard</span>
+        </div>
         </div>
         """, unsafe_allow_html=True)
     
-    with col3:
-        st.markdown("""
-        <div class="highlight-box">
-        <h4>📈 Visualization</h4>
-        <p>Interactive dashboards, custom charts, and compelling data storytelling solutions.</p>
-        </div>
-        """, unsafe_allow_html=True)
+    # Contact & Opportunities Section
+    st.markdown('<h2 class="section-header">💼 Open for Opportunities</h2>', unsafe_allow_html=True)
+    
+    st.markdown("""
+    <div class="contact-section">
+    <h3 style="color: #00d4aa; margin-bottom: 1.5rem; text-align: center;">🚀 Ready to Collaborate</h3>
+    
+    <div style="text-align: center; margin-bottom: 2rem;">
+    <p style="font-size: 1.1rem; margin-bottom: 1rem;">I'm actively seeking opportunities in:</p>
+    <div style="margin-bottom: 1.5rem;">
+    <span class="tech-badge">Data Science Internships</span>
+    <span class="tech-badge">Full-time Positions</span>
+    <span class="tech-badge">Freelance Projects</span>
+    <span class="tech-badge">Research Collaborations</span>
+    </div>
+    </div>
+    
+    <div style="text-align: center; margin-bottom: 1.5rem;">
+    <h4 style="color: #00d4aa; margin-bottom: 1rem;">📧 Let's Connect</h4>
+    <a href="mailto:bombomatsitsa@gmail.com" class="email-link">
+    bombomatsitsa@gmail.com
+    </a>
+    </div>
+    
+    <div style="text-align: center;">
+    <p style="opacity: 0.9; margin-bottom: 0.5rem;">Available for:</p>
+    <p style="margin: 0;">✓ Remote work • ✓ On-site opportunities • ✓ Contract projects • ✓ Team collaborations</p>
+    </div>
+    </div>
+    """, unsafe_allow_html=True)
     
     # Call to action
     st.markdown("---")
@@ -174,7 +291,7 @@ def main():
     # Footer
     st.markdown("---")
     st.markdown("""
-    <div style='text-align: center; color: #666;'>
+    <div style='text-align: center; color: #fafafa; opacity: 0.8;'>
     <p>© 2024 Festus Matsitsa Bombo | Data Scientist Portfolio</p>
     <p>Committed to continuous learning, innovation, and delivering high-impact, scalable analytical solutions.</p>
     </div>
