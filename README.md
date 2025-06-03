@@ -6,9 +6,80 @@ A comprehensive data science portfolio website built with Streamlit, showcasing 
 
 - **Professional Portfolio**: Complete overview of experience, skills, and education
 - **Interactive Data Science Toolkit**: Real-time data analysis, visualization, and machine learning tools
+- **Project Showcase**: Detailed case studies of completed projects
+- **Contact System**: Interactive contact form and multiple communication channels
 - **Resume Download**: Direct PDF download functionality
-- **Responsive Design**: Mobile-friendly interface with professional styling
+- **Dark Mode Design**: Professional dark theme with green accents
 - **Multi-page Navigation**: Organized sections for easy exploration
+
+## Running Locally in VS Code
+
+### Prerequisites
+- Python 3.11 or higher
+- VS Code with Python extension
+- Git
+
+### Setup Instructions
+
+1. **Clone or Download the Project**
+   ```bash
+   # If using Git
+   git clone <your-repository-url>
+   cd data-science-portfolio
+   
+   # Or download and extract the ZIP file
+   ```
+
+2. **Open in VS Code**
+   ```bash
+   code .
+   ```
+
+3. **Create Virtual Environment**
+   ```bash
+   # Windows
+   python -m venv venv
+   venv\Scripts\activate
+   
+   # macOS/Linux
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
+
+4. **Install Dependencies**
+   ```bash
+   pip install streamlit pandas numpy matplotlib seaborn plotly scikit-learn scipy
+   ```
+
+5. **Run the Application**
+   ```bash
+   streamlit run app.py
+   ```
+
+6. **Access the Portfolio**
+   - Open your browser and go to `http://localhost:8501`
+   - The portfolio will automatically open
+
+### VS Code Configuration
+
+Create `.vscode/settings.json` for optimal development:
+```json
+{
+    "python.defaultInterpreterPath": "./venv/bin/python",
+    "python.terminal.activateEnvironment": true,
+    "files.exclude": {
+        "**/__pycache__": true,
+        "**/venv": false
+    }
+}
+```
+
+### Development Tips
+
+- Use VS Code's integrated terminal for running commands
+- Install the Python and Streamlit extensions for better support
+- The app automatically reloads when you save changes
+- Check the terminal for any error messages
 
 ## Deployment Options
 
@@ -30,16 +101,6 @@ A comprehensive data science portfolio website built with Streamlit, showcasing 
 1. Install Heroku CLI
 2. Create a new Heroku app
 3. Deploy using the included `Procfile` and `setup.sh`
-
-### Local Development
-
-```bash
-# Install dependencies
-pip install streamlit pandas numpy matplotlib seaborn plotly scikit-learn scipy
-
-# Run the application
-streamlit run app.py
-```
 
 ## Project Structure
 

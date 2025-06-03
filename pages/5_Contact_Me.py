@@ -106,43 +106,46 @@ def main():
     col1, col2 = st.columns([1, 1])
     
     with col1:
-        st.markdown("""
-        <div class="contact-info-card">
-            <h3 style="color: #00d4aa; margin-bottom: 1.5rem; text-align: center;">📞 Contact Information</h3>
-            
-            <div class="contact-method">
-                <h4 style="color: #00d4aa; margin-bottom: 0.5rem;">📧 Email</h4>
-                <p style="margin: 0; color: #fafafa;">bombomatsitsa@gmail.com</p>
-            </div>
-            
-            <div class="contact-method">
-                <h4 style="color: #00d4aa; margin-bottom: 0.5rem;">📱 Phone</h4>
-                <p style="margin: 0; color: #fafafa;">+254 702 816 978</p>
-            </div>
-            
-            <div class="contact-method">
-                <h4 style="color: #00d4aa; margin-bottom: 0.5rem;">🔗 GitHub</h4>
-                <p style="margin: 0; color: #fafafa;">
-                    <a href="https://github.com/Bombo9" target="_blank" style="color: #00d4aa;">github.com/Bombo9</a>
-                </p>
-            </div>
-            
-            <div class="contact-method">
-                <h4 style="color: #00d4aa; margin-bottom: 0.5rem;">🎓 Education</h4>
-                <p style="margin: 0; color: #fafafa;">BSc Computer Science</p>
-                <p style="margin: 0; color: #fafafa; opacity: 0.8;">Pwani University (2022-2027)</p>
-            </div>
-            
-            <div style="text-align: center; margin-top: 2rem;">
-                <a href="mailto:bombomatsitsa@gmail.com" class="email-link">
-                    📧 Send Email
-                </a>
-                <a href="tel:+254702816978" class="email-link">
-                    📱 Call Now
-                </a>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
+        # Contact Information Section using Streamlit components
+        st.markdown('<div class="contact-info-card">', unsafe_allow_html=True)
+        st.markdown('<h3 style="color: #00d4aa; margin-bottom: 1.5rem; text-align: center;">📞 Contact Information</h3>', unsafe_allow_html=True)
+        
+        # Email
+        st.markdown('<div class="contact-method">', unsafe_allow_html=True)
+        st.markdown('<h4 style="color: #00d4aa; margin-bottom: 0.5rem;">📧 Email</h4>', unsafe_allow_html=True)
+        st.write("bombomatsitsa@gmail.com")
+        st.markdown('</div>', unsafe_allow_html=True)
+        
+        # Phone
+        st.markdown('<div class="contact-method">', unsafe_allow_html=True)
+        st.markdown('<h4 style="color: #00d4aa; margin-bottom: 0.5rem;">📱 Phone</h4>', unsafe_allow_html=True)
+        st.write("+254 702 816 978")
+        st.markdown('</div>', unsafe_allow_html=True)
+        
+        # GitHub
+        st.markdown('<div class="contact-method">', unsafe_allow_html=True)
+        st.markdown('<h4 style="color: #00d4aa; margin-bottom: 0.5rem;">🔗 GitHub</h4>', unsafe_allow_html=True)
+        st.markdown('<a href="https://github.com/Bombo9" target="_blank" style="color: #00d4aa;">github.com/Bombo9</a>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+        
+        # Education
+        st.markdown('<div class="contact-method">', unsafe_allow_html=True)
+        st.markdown('<h4 style="color: #00d4aa; margin-bottom: 0.5rem;">🎓 Education</h4>', unsafe_allow_html=True)
+        st.write("BSc Computer Science")
+        st.markdown('<p style="opacity: 0.8;">Pwani University (2022-2027)</p>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+        
+        # Contact buttons
+        st.markdown('<div style="text-align: center; margin-top: 2rem;">', unsafe_allow_html=True)
+        col_a, col_b = st.columns(2)
+        with col_a:
+            if st.button("📧 Send Email", use_container_width=True):
+                st.markdown('<script>window.open("mailto:bombomatsitsa@gmail.com", "_blank");</script>', unsafe_allow_html=True)
+        with col_b:
+            if st.button("📱 Call Now", use_container_width=True):
+                st.markdown('<script>window.open("tel:+254702816978", "_blank");</script>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
     
     with col2:
         st.markdown("""
