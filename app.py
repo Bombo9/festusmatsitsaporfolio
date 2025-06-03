@@ -269,11 +269,23 @@ def main():
     </div>
     </div>
     
-    <div style="text-align: center; margin-bottom: 1.5rem;">
-    <h4 style="color: #00d4aa; margin-bottom: 1rem;">📧 Let's Connect</h4>
-    <a href="mailto:bombomatsitsa@gmail.com" class="email-link">
-    bombomatsitsa@gmail.com
+    <div style="text-align: center; margin-bottom: 2rem;">
+    <h4 style="color: #00d4aa; margin-bottom: 1rem;">📞 Contact Information</h4>
+    <div style="margin-bottom: 1rem;">
+    <a href="mailto:bombomatsitsa@gmail.com" class="email-link" style="margin: 0.5rem;">
+    📧 bombomatsitsa@gmail.com
     </a>
+    </div>
+    <div style="margin-bottom: 1rem;">
+    <a href="tel:+254702816978" class="email-link" style="margin: 0.5rem;">
+    📱 +254 702 816 978
+    </a>
+    </div>
+    <div>
+    <a href="https://github.com/Bombo9" target="_blank" class="email-link" style="margin: 0.5rem;">
+    🔗 GitHub Portfolio
+    </a>
+    </div>
     </div>
     
     <div style="text-align: center;">
