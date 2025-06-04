@@ -1,6 +1,8 @@
 import streamlit as st
 import base64
+import os
 from io import BytesIO
+from PIL import Image
 
 # Page configuration
 st.set_page_config(
@@ -121,6 +123,14 @@ def main():
     # Header
     st.markdown('<h1 class="main-header">FESTUS MATSITSA BOMBO</h1>', unsafe_allow_html=True)
     st.markdown('<p class="sub-header">DATA SCIENTIST</p>', unsafe_allow_html=True)
+    
+    # Profile image section
+    col1, col2, col3 = st.columns([1, 2, 1])
+    
+    with col2:
+        if os.path.exists("assets/profile.png"):
+            image = Image.open("assets/profile.png")
+            st.image(image, width=300, caption="Festus Matsitsa Bombo - Data Scientist")
     
     # Navigation info
     st.sidebar.title("🧭 Navigation")

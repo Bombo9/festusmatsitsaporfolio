@@ -1,349 +1,351 @@
 import streamlit as st
+import pandas as pd
+import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
-import pandas as pd
 
-st.set_page_config(page_title="Projects - Festus Bombo", page_icon="🚀", layout="wide")
+st.set_page_config(
+    page_title="Projects Portfolio",
+    page_icon="📊",
+    layout="wide"
+)
 
-# Custom CSS for dark mode
-st.markdown("""
-<style>
-    .project-card {
-        background: linear-gradient(135deg, #2a2a3e 0%, #1e1e2e 100%);
-        padding: 2rem;
-        border-radius: 20px;
-        margin: 1.5rem 0;
-        border-left: 5px solid #00d4aa;
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-        border: 1px solid rgba(0, 212, 170, 0.3);
-        transition: all 0.3s ease;
-    }
-    .project-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 12px 35px rgba(0, 212, 170, 0.25);
-        border: 1px solid rgba(0, 212, 170, 0.5);
-    }
-    .project-header {
-        font-size: 1.8rem;
-        font-weight: bold;
-        color: #00d4aa;
-        margin-bottom: 1rem;
-        text-shadow: 0 0 10px rgba(0, 212, 170, 0.3);
-    }
-    .project-description {
-        font-size: 1.1rem;
-        line-height: 1.6;
-        margin-bottom: 1.5rem;
-        color: #fafafa;
-        opacity: 0.9;
-    }
-    .tech-stack {
-        margin: 1rem 0;
-    }
-    .tech-badge {
-        background: linear-gradient(45deg, #00d4aa, #00b894);
-        color: #0e1117;
-        padding: 0.4rem 1rem;
-        border-radius: 25px;
-        margin: 0.3rem 0.3rem 0.3rem 0;
-        display: inline-block;
-        font-size: 0.9rem;
-        font-weight: bold;
-        box-shadow: 0 3px 10px rgba(0, 212, 170, 0.3);
-    }
-    .project-stats {
-        background: rgba(0, 212, 170, 0.1);
-        padding: 1rem;
-        border-radius: 10px;
-        margin-top: 1rem;
-        border: 1px solid rgba(0, 212, 170, 0.2);
-    }
-    .stat-item {
-        display: inline-block;
-        margin: 0.5rem 1rem 0.5rem 0;
-        color: #00d4aa;
-        font-weight: bold;
-    }
-    .section-header {
-        font-size: 2.5rem;
-        font-weight: bold;
-        color: #00d4aa;
-        text-align: center;
-        margin: 2rem 0;
-        text-shadow: 0 0 15px rgba(0, 212, 170, 0.4);
-    }
-    .achievement-badge {
-        background: linear-gradient(45deg, #ff6b6b, #ee5a24);
-        color: white;
-        padding: 0.3rem 0.8rem;
-        border-radius: 20px;
-        font-size: 0.8rem;
-        font-weight: bold;
-        display: inline-block;
-        margin: 0.2rem;
-        box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
-    }
-</style>
-""", unsafe_allow_html=True)
+def create_sample_data():
+    """Create sample data for project demonstrations"""
+    # Sample sales data
+    np.random.seed(42)
+    dates = pd.date_range('2023-01-01', '2024-01-01', freq='D')
+    sales_data = pd.DataFrame({
+        'date': dates,
+        'sales': np.random.normal(1000, 200, len(dates)) + np.sin(np.arange(len(dates)) * 2 * np.pi / 365) * 100,
+        'region': np.random.choice(['North', 'South', 'East', 'West'], len(dates)),
+        'product': np.random.choice(['Product A', 'Product B', 'Product C'], len(dates))
+    })
+    sales_data['sales'] = np.maximum(sales_data['sales'], 0)
+    
+    # Customer segmentation data
+    customer_data = pd.DataFrame({
+        'customer_id': range(1, 1001),
+        'age': np.random.normal(35, 10, 1000),
+        'income': np.random.normal(50000, 15000, 1000),
+        'spending_score': np.random.normal(50, 20, 1000),
+        'gender': np.random.choice(['Male', 'Female'], 1000)
+    })
+    
+    # Stock price data
+    stock_data = pd.DataFrame({
+        'date': pd.date_range('2020-01-01', '2024-01-01', freq='D'),
+        'price': 100 + np.cumsum(np.random.normal(0, 2, pd.date_range('2020-01-01', '2024-01-01', freq='D').shape[0]))
+    })
+    
+    return sales_data, customer_data, stock_data
 
-def main():
-    st.markdown('<h1 class="section-header">🚀 Project Portfolio</h1>', unsafe_allow_html=True)
-    st.markdown("---")
+def sales_analysis_project():
+    """Sales Analysis and Forecasting Project"""
+    st.header("📈 Sales Analysis & Forecasting")
     
-    # Project Overview Metrics
-    col1, col2, col3, col4 = st.columns(4)
-    
-    with col1:
-        st.metric(
-            label="Total Projects",
-            value="15+",
-            delta="Active Portfolio"
-        )
-    
-    with col2:
-        st.metric(
-            label="Client Satisfaction",
-            value="98%",
-            delta="5-star ratings"
-        )
-    
-    with col3:
-        st.metric(
-            label="Industries Served",
-            value="8",
-            delta="Diverse domains"
-        )
-    
-    with col4:
-        st.metric(
-            label="ROI Generated",
-            value="$2M+",
-            delta="Client value"
-        )
-    
-    # Featured Projects
-    st.markdown("## 🎯 Featured Projects")
-    
-    # Project 1: Customer Segmentation
     st.markdown("""
-    <div class="project-card">
-        <div class="project-header">📊 Advanced Customer Segmentation Analysis</div>
-        <div class="project-description">
-        Developed a comprehensive customer segmentation solution for a major e-commerce platform with 500K+ customers. 
-        Implemented RFM analysis, K-means clustering, and behavioral analytics to identify distinct customer segments, 
-        resulting in a 25% increase in targeted marketing campaign effectiveness and 18% boost in customer retention.
-        </div>
-        
-        <div class="tech-stack">
-            <span class="tech-badge">Python</span>
-            <span class="tech-badge">Scikit-learn</span>
-            <span class="tech-badge">Pandas</span>
-            <span class="tech-badge">Tableau</span>
-            <span class="tech-badge">SQL</span>
-            <span class="tech-badge">AWS</span>
-        </div>
-        
-        <div class="project-stats">
-            <span class="stat-item">🎯 25% ↑ Marketing ROI</span>
-            <span class="stat-item">👥 500K+ Customers Analyzed</span>
-            <span class="stat-item">📈 18% ↑ Retention Rate</span>
-            <span class="stat-item">⏱️ 6 weeks delivery</span>
-        </div>
-        
-        <div style="margin-top: 1rem;">
-            <span class="achievement-badge">Client Choice Award</span>
-            <span class="achievement-badge">5-Star Rating</span>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+    **Project Overview:**
+    This project demonstrates comprehensive sales data analysis including trend identification,
+    seasonal patterns, regional performance, and basic forecasting capabilities.
     
-    # Project 2: Sales Forecasting
-    st.markdown("""
-    <div class="project-card">
-        <div class="project-header">🤖 Intelligent Sales Forecasting System</div>
-        <div class="project-description">
-        Built an advanced time series forecasting model for a retail chain with 200+ stores. Combined ARIMA, 
-        Random Forest, and LSTM neural networks to predict monthly sales with 92% accuracy. Integrated external 
-        factors like seasonality, promotions, and economic indicators to optimize inventory management and reduce 
-        stockouts by 35%.
-        </div>
-        
-        <div class="tech-stack">
-            <span class="tech-badge">Python</span>
-            <span class="tech-badge">TensorFlow</span>
-            <span class="tech-badge">Time Series</span>
-            <span class="tech-badge">Power BI</span>
-            <span class="tech-badge">Azure ML</span>
-            <span class="tech-badge">LSTM</span>
-        </div>
-        
-        <div class="project-stats">
-            <span class="stat-item">🎯 92% Accuracy</span>
-            <span class="stat-item">🏪 200+ Stores</span>
-            <span class="stat-item">📉 35% ↓ Stockouts</span>
-            <span class="stat-item">💰 $500K+ Savings</span>
-        </div>
-        
-        <div style="margin-top: 1rem;">
-            <span class="achievement-badge">Top Rated Plus</span>
-            <span class="achievement-badge">Repeat Client</span>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+    **Technologies Used:** Python, Pandas, Plotly, Statistical Analysis
     
-    # Project 3: Financial Risk Assessment
-    st.markdown("""
-    <div class="project-card">
-        <div class="project-header">📈 Credit Risk Assessment Model</div>
-        <div class="project-description">
-        Developed a sophisticated credit risk assessment system for a fintech startup processing 10K+ loan 
-        applications monthly. Implemented ensemble methods (XGBoost, Random Forest) with feature engineering 
-        to achieve 88% accuracy in predicting loan defaults. Reduced manual review time by 60% while maintaining 
-        strict risk thresholds.
-        </div>
-        
-        <div class="tech-stack">
-            <span class="tech-badge">Python</span>
-            <span class="tech-badge">XGBoost</span>
-            <span class="tech-badge">SQL</span>
-            <span class="tech-badge">Docker</span>
-            <span class="tech-badge">FastAPI</span>
-            <span class="tech-badge">PostgreSQL</span>
-        </div>
-        
-        <div class="project-stats">
-            <span class="stat-item">🎯 88% Accuracy</span>
-            <span class="stat-item">📋 10K+ Applications/month</span>
-            <span class="stat-item">⚡ 60% ↓ Review Time</span>
-            <span class="stat-item">🛡️ 15% ↓ Default Rate</span>
-        </div>
-        
-        <div style="margin-top: 1rem;">
-            <span class="achievement-badge">Industry Recognition</span>
-            <span class="achievement-badge">Long-term Contract</span>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+    **Key Features:**
+    - Time series analysis
+    - Regional performance comparison
+    - Product performance analysis
+    - Trend identification
+    """)
     
-    # Project 4: Market Analysis Dashboard
-    st.markdown("""
-    <div class="project-card">
-        <div class="project-header">🔍 Real-time Market Intelligence Dashboard</div>
-        <div class="project-description">
-        Created an automated market analysis platform that scrapes competitor data, social media sentiment, 
-        and market trends in real-time. Built interactive dashboards with drill-down capabilities providing 
-        strategic insights for C-level executives. Enabled data-driven decision making that increased market 
-        share by 12% within 6 months.
-        </div>
-        
-        <div class="tech-stack">
-            <span class="tech-badge">Python</span>
-            <span class="tech-badge">Plotly Dash</span>
-            <span class="tech-badge">Web Scraping</span>
-            <span class="tech-badge">Sentiment Analysis</span>
-            <span class="tech-badge">MongoDB</span>
-            <span class="tech-badge">Redis</span>
-        </div>
-        
-        <div class="project-stats">
-            <span class="stat-item">📊 Real-time Updates</span>
-            <span class="stat-item">🌐 50+ Data Sources</span>
-            <span class="stat-item">📈 12% ↑ Market Share</span>
-            <span class="stat-item">👥 C-level Adoption</span>
-        </div>
-        
-        <div style="margin-top: 1rem;">
-            <span class="achievement-badge">Innovation Award</span>
-            <span class="achievement-badge">Executive Testimonial</span>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+    sales_data, _, _ = create_sample_data()
     
-    # Additional Projects Summary
-    st.markdown("## 📂 Additional Projects")
+    # Time series analysis
+    st.subheader("📅 Sales Trends Over Time")
+    
+    # Aggregate daily sales
+    daily_sales = sales_data.groupby('date')['sales'].sum().reset_index()
+    
+    fig = px.line(daily_sales, x='date', y='sales', 
+                  title="Daily Sales Trend",
+                  labels={'sales': 'Sales ($)', 'date': 'Date'})
+    st.plotly_chart(fig, use_container_width=True)
+    
+    # Regional analysis
+    st.subheader("🗺️ Regional Performance")
+    
+    regional_sales = sales_data.groupby('region')['sales'].agg(['sum', 'mean', 'count']).reset_index()
+    regional_sales.columns = ['Region', 'Total Sales', 'Average Sales', 'Number of Transactions']
     
     col1, col2 = st.columns(2)
     
     with col1:
-        additional_projects = [
-            {"name": "Healthcare Analytics Platform", "domain": "Healthcare", "impact": "30% efficiency gain"},
-            {"name": "Supply Chain Optimization", "domain": "Logistics", "impact": "22% cost reduction"},
-            {"name": "Social Media Analytics", "domain": "Marketing", "impact": "40% engagement boost"},
-            {"name": "Fraud Detection System", "domain": "Fintech", "impact": "95% fraud detection"},
-            {"name": "Energy Consumption Predictor", "domain": "Utilities", "impact": "15% energy savings"}
-        ]
-        
-        for project in additional_projects:
-            st.markdown(f"""
-            <div style="background: rgba(0, 212, 170, 0.1); padding: 1rem; border-radius: 10px; margin: 0.5rem 0; border-left: 3px solid #00d4aa;">
-                <strong style="color: #00d4aa;">{project['name']}</strong><br>
-                <small style="color: #fafafa; opacity: 0.8;">{project['domain']} • {project['impact']}</small>
-            </div>
-            """, unsafe_allow_html=True)
+        fig = px.bar(regional_sales, x='Region', y='Total Sales', 
+                     title="Total Sales by Region")
+        st.plotly_chart(fig, use_container_width=True)
     
     with col2:
-        more_projects = [
-            {"name": "Recommendation Engine", "domain": "E-commerce", "impact": "28% sales increase"},
-            {"name": "Predictive Maintenance", "domain": "Manufacturing", "impact": "45% downtime reduction"},
-            {"name": "Price Optimization Model", "domain": "Retail", "impact": "12% profit margin"},
-            {"name": "Churn Prediction Model", "domain": "Telecom", "impact": "20% retention boost"},
-            {"name": "Inventory Optimization", "domain": "Supply Chain", "impact": "25% cost savings"}
-        ]
-        
-        for project in more_projects:
-            st.markdown(f"""
-            <div style="background: rgba(0, 212, 170, 0.1); padding: 1rem; border-radius: 10px; margin: 0.5rem 0; border-left: 3px solid #00d4aa;">
-                <strong style="color: #00d4aa;">{project['name']}</strong><br>
-                <small style="color: #fafafa; opacity: 0.8;">{project['domain']} • {project['impact']}</small>
-            </div>
-            """, unsafe_allow_html=True)
+        fig = px.pie(regional_sales, values='Total Sales', names='Region', 
+                     title="Sales Distribution by Region")
+        st.plotly_chart(fig, use_container_width=True)
     
-    # Technologies & Tools Used
-    st.markdown("## 🛠️ Technology Stack Across Projects")
+    # Product analysis
+    st.subheader("📦 Product Performance")
     
-    tech_usage = {
-        'Technology': ['Python', 'SQL', 'Tableau', 'Power BI', 'Scikit-learn', 'TensorFlow', 
-                      'XGBoost', 'Pandas', 'NumPy', 'Plotly', 'AWS', 'Azure'],
-        'Projects': [15, 12, 8, 6, 10, 5, 7, 15, 14, 9, 4, 3],
-        'Proficiency': [95, 88, 85, 80, 90, 75, 85, 95, 92, 88, 70, 65]
-    }
+    product_sales = sales_data.groupby('product')['sales'].agg(['sum', 'mean']).reset_index()
+    product_sales.columns = ['Product', 'Total Sales', 'Average Sales']
     
-    df_tech = pd.DataFrame(tech_usage)
-    
-    fig = px.scatter(df_tech, x='Projects', y='Proficiency', size='Projects', 
-                     hover_name='Technology', title="Technology Usage vs Proficiency",
-                     color='Proficiency', color_continuous_scale='Viridis')
-    
-    fig.update_layout(
-        plot_bgcolor='rgba(0,0,0,0)',
-        paper_bgcolor='rgba(0,0,0,0)',
-        font_color='#fafafa'
-    )
-    
+    fig = px.bar(product_sales, x='Product', y=['Total Sales', 'Average Sales'], 
+                 title="Product Performance Comparison", barmode='group')
     st.plotly_chart(fig, use_container_width=True)
     
-    # Project Impact Summary
-    st.markdown("## 📊 Project Impact Summary")
+    # Monthly trends
+    st.subheader("📊 Monthly Sales Patterns")
     
-    impact_data = {
-        'Metric': ['Revenue Generated', 'Cost Savings', 'Efficiency Gains', 'Accuracy Improvements'],
-        'Average Impact': [25, 30, 35, 15],
-        'Best Result': [40, 60, 45, 25]
-    }
+    sales_data['month'] = sales_data['date'].dt.month
+    monthly_sales = sales_data.groupby('month')['sales'].sum().reset_index()
     
-    df_impact = pd.DataFrame(impact_data)
+    fig = px.bar(monthly_sales, x='month', y='sales', 
+                 title="Sales by Month",
+                 labels={'month': 'Month', 'sales': 'Total Sales ($)'})
+    st.plotly_chart(fig, use_container_width=True)
     
-    fig_impact = px.bar(df_impact, x='Metric', y=['Average Impact', 'Best Result'],
-                       title="Project Impact Metrics (%)",
-                       barmode='group')
+    # Key insights
+    st.subheader("🎯 Key Insights")
+    total_sales = sales_data['sales'].sum()
+    avg_daily_sales = sales_data.groupby('date')['sales'].sum().mean()
+    best_region = regional_sales.loc[regional_sales['Total Sales'].idxmax(), 'Region']
+    best_product = product_sales.loc[product_sales['Total Sales'].idxmax(), 'Product']
     
-    fig_impact.update_layout(
-        plot_bgcolor='rgba(0,0,0,0)',
-        paper_bgcolor='rgba(0,0,0,0)',
-        font_color='#fafafa'
-    )
+    col1, col2, col3, col4 = st.columns(4)
     
-    st.plotly_chart(fig_impact, use_container_width=True)
+    with col1:
+        st.metric("Total Sales", f"${total_sales:,.0f}")
+    
+    with col2:
+        st.metric("Avg Daily Sales", f"${avg_daily_sales:,.0f}")
+    
+    with col3:
+        st.metric("Top Region", best_region)
+    
+    with col4:
+        st.metric("Top Product", best_product)
+
+def customer_segmentation_project():
+    """Customer Segmentation Project"""
+    st.header("👥 Customer Segmentation Analysis")
+    
+    st.markdown("""
+    **Project Overview:**
+    Customer segmentation using demographic and behavioral data to identify distinct customer groups
+    for targeted marketing strategies.
+    
+    **Technologies Used:** Python, Scikit-learn, K-Means Clustering, Statistical Analysis
+    
+    **Key Features:**
+    - Demographic analysis
+    - Behavioral segmentation
+    - Customer profiling
+    - Marketing recommendations
+    """)
+    
+    _, customer_data, _ = create_sample_data()
+    
+    # Customer demographics
+    st.subheader("👤 Customer Demographics")
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        fig = px.histogram(customer_data, x='age', title="Age Distribution",
+                          nbins=20, labels={'age': 'Age', 'count': 'Number of Customers'})
+        st.plotly_chart(fig, use_container_width=True)
+    
+    with col2:
+        gender_counts = customer_data['gender'].value_counts()
+        fig = px.pie(values=gender_counts.values, names=gender_counts.index, 
+                     title="Gender Distribution")
+        st.plotly_chart(fig, use_container_width=True)
+    
+    # Income vs Spending analysis
+    st.subheader("💰 Income vs Spending Analysis")
+    
+    fig = px.scatter(customer_data, x='income', y='spending_score', 
+                     color='gender', title="Income vs Spending Score",
+                     labels={'income': 'Annual Income ($)', 'spending_score': 'Spending Score'})
+    st.plotly_chart(fig, use_container_width=True)
+    
+    # Age groups analysis
+    st.subheader("👶👦👨👴 Age Group Analysis")
+    
+    customer_data['age_group'] = pd.cut(customer_data['age'], 
+                                       bins=[0, 25, 35, 50, 100], 
+                                       labels=['18-25', '26-35', '36-50', '50+'])
+    
+    age_group_stats = customer_data.groupby('age_group').agg({
+        'income': 'mean',
+        'spending_score': 'mean'
+    }).reset_index()
+    
+    fig = px.bar(age_group_stats, x='age_group', y=['income', 'spending_score'],
+                 title="Average Income and Spending by Age Group", barmode='group')
+    st.plotly_chart(fig, use_container_width=True)
+    
+    # Customer segments
+    st.subheader("🎯 Customer Segments")
+    
+    # Create segments based on spending and income
+    customer_data['segment'] = 'Low Value'
+    customer_data.loc[(customer_data['income'] > customer_data['income'].median()) & 
+                     (customer_data['spending_score'] > customer_data['spending_score'].median()), 'segment'] = 'High Value'
+    customer_data.loc[(customer_data['income'] <= customer_data['income'].median()) & 
+                     (customer_data['spending_score'] > customer_data['spending_score'].median()), 'segment'] = 'High Spender'
+    customer_data.loc[(customer_data['income'] > customer_data['income'].median()) & 
+                     (customer_data['spending_score'] <= customer_data['spending_score'].median()), 'segment'] = 'Conservative'
+    
+    segment_counts = customer_data['segment'].value_counts()
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        fig = px.pie(values=segment_counts.values, names=segment_counts.index, 
+                     title="Customer Segment Distribution")
+        st.plotly_chart(fig, use_container_width=True)
+    
+    with col2:
+        segment_stats = customer_data.groupby('segment').agg({
+            'income': 'mean',
+            'spending_score': 'mean',
+            'age': 'mean'
+        }).reset_index()
+        
+        st.write("**Segment Characteristics:**")
+        st.dataframe(segment_stats.round(2), use_container_width=True)
+
+def stock_prediction_project():
+    """Stock Price Prediction Project"""
+    st.header("📈 Stock Price Analysis & Prediction")
+    
+    st.markdown("""
+    **Project Overview:**
+    Time series analysis and prediction of stock prices using statistical methods and technical indicators.
+    
+    **Technologies Used:** Python, Pandas, Statistical Modeling, Technical Analysis
+    
+    **Key Features:**
+    - Price trend analysis
+    - Moving averages
+    - Volatility analysis
+    - Technical indicators
+    """)
+    
+    _, _, stock_data = create_sample_data()
+    
+    # Calculate technical indicators
+    stock_data['MA_7'] = stock_data['price'].rolling(window=7).mean()
+    stock_data['MA_30'] = stock_data['price'].rolling(window=30).mean()
+    stock_data['volatility'] = stock_data['price'].rolling(window=30).std()
+    stock_data['daily_return'] = stock_data['price'].pct_change()
+    
+    # Price trends
+    st.subheader("📊 Stock Price Trends")
+    
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=stock_data['date'], y=stock_data['price'], 
+                            name='Price', line=dict(color='blue')))
+    fig.add_trace(go.Scatter(x=stock_data['date'], y=stock_data['MA_7'], 
+                            name='7-Day MA', line=dict(color='red')))
+    fig.add_trace(go.Scatter(x=stock_data['date'], y=stock_data['MA_30'], 
+                            name='30-Day MA', line=dict(color='green')))
+    
+    fig.update_layout(title="Stock Price with Moving Averages",
+                     xaxis_title="Date", yaxis_title="Price ($)")
+    st.plotly_chart(fig, use_container_width=True)
+    
+    # Volatility analysis
+    st.subheader("📉 Volatility Analysis")
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        fig = px.line(stock_data, x='date', y='volatility', 
+                      title="30-Day Rolling Volatility")
+        st.plotly_chart(fig, use_container_width=True)
+    
+    with col2:
+        fig = px.histogram(stock_data, x='daily_return', 
+                          title="Daily Returns Distribution", nbins=50)
+        st.plotly_chart(fig, use_container_width=True)
+    
+    # Performance metrics
+    st.subheader("📈 Performance Metrics")
+    
+    total_return = (stock_data['price'].iloc[-1] / stock_data['price'].iloc[0] - 1) * 100
+    volatility_annual = stock_data['daily_return'].std() * np.sqrt(252) * 100
+    max_drawdown = ((stock_data['price'] / stock_data['price'].cummax()) - 1).min() * 100
+    
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        st.metric("Total Return", f"{total_return:.2f}%")
+    
+    with col2:
+        st.metric("Annual Volatility", f"{volatility_annual:.2f}%")
+    
+    with col3:
+        st.metric("Max Drawdown", f"{max_drawdown:.2f}%")
+
+def main():
+    st.title("📊 Data Science Projects Portfolio")
+    st.markdown("Showcase of various data science projects demonstrating different analytical techniques")
+    
+    # Project selection
+    project_tabs = st.tabs(["📈 Sales Analysis", "👥 Customer Segmentation", "📊 Stock Analysis"])
+    
+    with project_tabs[0]:
+        sales_analysis_project()
+    
+    with project_tabs[1]:
+        customer_segmentation_project()
+    
+    with project_tabs[2]:
+        stock_prediction_project()
+    
+    # Additional projects section
+    st.markdown("---")
+    st.subheader("🚀 Additional Project Ideas")
+    
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        st.markdown("""
+        **📊 Web Analytics Dashboard**
+        - User behavior analysis
+        - Conversion funnel optimization
+        - A/B testing framework
+        - Real-time monitoring
+        """)
+    
+    with col2:
+        st.markdown("""
+        **🔍 Fraud Detection System**
+        - Anomaly detection algorithms
+        - Risk scoring models
+        - Real-time alerting
+        - Pattern recognition
+        """)
+    
+    with col3:
+        st.markdown("""
+        **🤖 Recommendation Engine**
+        - Collaborative filtering
+        - Content-based recommendations
+        - Hybrid approaches
+        - Performance evaluation
+        """)
+    
+    st.markdown("---")
+    st.markdown("*These projects demonstrate various aspects of data science including EDA, visualization, machine learning, and statistical analysis. Each project showcases different tools and methodologies commonly used in the field.*")
 
 if __name__ == "__main__":
     main()

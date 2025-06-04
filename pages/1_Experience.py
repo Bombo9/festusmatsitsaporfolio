@@ -84,7 +84,7 @@ def main():
     <div class="experience-card">
         <div class="position-title">🔹 Data Scientist</div>
         <div class="company-name">Fiverr</div>
-        <div class="duration">April 2021 - Present ({})</div>
+        <div class="duration">April 2023 - Present ({})</div>
         <p><strong>Key Responsibilities & Achievements:</strong></p>
         <ul>
             <li>Built and maintained relationships with clients to understand their data needs</li>
@@ -95,7 +95,7 @@ def main():
         </ul>
         <p><strong>Technologies Used:</strong> Python, R, SQL, Pandas, NumPy, Scikit-learn, Matplotlib, Seaborn, Tableau</p>
     </div>
-    """.format(calculate_duration("Apr 2021")), unsafe_allow_html=True)
+    """.format(calculate_duration("Apr 2023")), unsafe_allow_html=True)
     
     # Upwork Experience
     st.markdown("""
@@ -165,7 +165,7 @@ def main():
     <div class="education-card">
         <div class="position-title">🎓 Bachelor of Science in Computer Science</div>
         <div class="company-name">Pwani University</div>
-        <div class="duration">August 2022 - September 2027 (Expected)</div>
+        <div class="duration">August 2023 - September 2027 (Expected)</div>
         <p><strong>Current Status:</strong> Undergraduate Student</p>
         <p><strong>Relevant Coursework:</strong></p>
         <ul>
