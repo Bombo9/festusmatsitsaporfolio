@@ -191,7 +191,7 @@ def main():
         <p><strong>🏫 Education:</strong><br>
         BSc Computer Science<br>
         Pwani University<br>
-        Aug 2022 - Sep 2027</p>
+        Aug 2023 - Sep 2027</p>
         
         <p><strong>💼 Current Status:</strong><br>
         Freelance Data Scientist<br>
