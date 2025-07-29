@@ -1,6 +1,9 @@
 import streamlit as st
 import json
 import os
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 from datetime import datetime
 
 st.set_page_config(
@@ -32,6 +35,60 @@ def save_message(message_data):
             json.dump(messages, f, indent=2)
         return True
     except:
+        return False
+
+def send_email_gmail(message_data):
+    """Send email using Gmail SMTP"""
+    try:
+        # Email configuration - Store these as Streamlit secrets
+        SMTP_SERVER = "smtp.gmail.com"
+        SMTP_PORT = 587
+        EMAIL_ADDRESS = st.secrets["email"]["address"]  # Your Gmail
+        EMAIL_PASSWORD = st.secrets["email"]["password"]  # App password
+        
+        # Create message
+        msg = MIMEMultipart()
+        msg['From'] = EMAIL_ADDRESS
+        msg['To'] = EMAIL_ADDRESS  # Send to yourself
+        msg['Subject'] = f"New Contact Form Message: {message_data['subject']}"
+        
+        # Email body
+        body = f"""
+New message from your portfolio contact form:
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+👤 CONTACT DETAILS:
+Name: {message_data['name']}
+Email: {message_data['email']}
+Company: {message_data.get('company', 'Not provided')}
+Phone: {message_data.get('phone', 'Not provided')}
+
+📋 MESSAGE DETAILS:
+Subject: {message_data['subject']}
+Timeline: {message_data['timeline']}
+Preferred Contact: {message_data['contact_preference']}
+
+💬 MESSAGE:
+{message_data['message']}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Sent at: {message_data['timestamp']}
+        """
+        
+        msg.attach(MIMEText(body, 'plain'))
+        
+        # Send email
+        server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
+        server.starttls()
+        server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+        text = msg.as_string()
+        server.sendmail(EMAIL_ADDRESS, EMAIL_ADDRESS, text)
+        server.quit()
+        
+        return True
+    except Exception as e:
+        st.error(f"Email sending failed: {str(e)}")
         return False
 
 def main():
@@ -153,12 +210,17 @@ def main():
                     "timeline": timeline
                 }
                 
-                # Save message
-                if save_message(message_data):
+                # Save message locally (backup)
+                save_message(message_data)
+                
+                # Send email via Gmail
+                email_sent = send_email_gmail(message_data)
+                
+                if email_sent:
                     st.success("✅ Thank you! Your message has been sent successfully. I'll get back to you soon!")
                     st.balloons()
                 else:
-                    st.warning("⚠️ There was an issue saving your message, but don't worry! Please reach out directly via email: bombomatsitsa@gmail.com")
+                    st.warning("⚠️ Message saved locally but email delivery failed. Please reach out directly via email: bombomatsitsa@gmail.com")
     
     # FAQ section
     st.markdown("---")
